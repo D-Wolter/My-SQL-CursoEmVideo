@@ -1,0 +1,116 @@
+------------------------------------------------
+------------------------------------------------
+ddl - data definition language
+comando definicoes dados 
+
+create database
+create table
+
+insert into
+ ----------------------------------------------------------
+ ---------------------------------------------------------
+ dml - data manupulation language
+ comando manipulaçao das variaveis
+
+create database cadastro;
+-----------------------------------------
+podemos usar `` para palavra definicao -  e '' para variaveis - permite mais flexibilidade para nomes com espaços e acentos, mas nao muiyo recomendado.
+use cadastro; 
+
+create table `pessoas` (
+`nome` varchar(30),
+`idade` tinyint,
+`sexo` char(1),
+`peso` float,
+`altura` float,
+nacionalidade varchar(20) default 'brasila'
+);
+
+describe pessoas;
+
+    não se poe virgula na ultima linha antes de fechar, se por ele espera nova linha-------- e o ponto virgula ; é a definição de comando
+
+----------------------------------
+
+drop database cadastro;
+            deleta tabela
+
+------------------------------
+
+create database cadastro
+default character set utf8
+default collate utf8_general_ci;
+
+create database meubanco;
+
+-----------------  
+adicionando regras de prncimento
+    not null - campo de prencimento obrigatorio
+    enum('M','F') - enumera opcaoes validads
+    decimal(5,2) - numeros decimail (lenNumero, quantidade digito depois da virgula) ex = 120,99
+
+create database cadastro
+default character set utf8
+default collate utf8_general_ci;
+
+create table pessoas (
+id int not null auto_increment,
+nome varchar(30) not null,
+idade date,
+sexo enum('M','F'),
+peso decimal(5,2),
+altura decimal(3,2),
+nacionalidade varchar(20) default 'brasil',
+primary key (id)
+)default charset = utf8;
+
+----------------------------------------
+inserir primeiro cliente (nomeando variaveis)
+    nao informamos id porque ele foi configurado par auto incrementado na geraçao do registro
+
+insert into pessoas
+(nome, idade, sexo, peso, altura, nacionalidade)
+values
+('daniel', '1984-01-02', 'M', '78.5', '1.83', 'brasil');
+
+select * from pessoas;
+
+------------------------------------------------
+inserir segundo cliente 
+
+insert into pessoas
+(nome, idade, sexo, peso, altura, nacionalidade)
+values
+('maria', '1974-01-02', 'F', '70.5', '1.63', 'argentina');
+
+---------------------------------------
+exibilir lista clientes
+
+select * from pessoas;
+
+--------------------------------------------
+ (inserir dados com campos prencidos nao sequencia sem precisar informar as chaves) (nome, idade, sexo, peso, altura, nacionalidade)
+
+insert into pessoas values
+(DEFAULT , 'jose', '1954-01-02', 'M', '77.5', '1.73', DEFAULT );
+
+---------------------------------------
+inserir multiplos 
+
+
+insert into pessoas values
+(DEFAULT , 'ramiro', '1954-01-02', 'M', '47.5', '1.43', DEFAULT ),
+(DEFAULT , 'bianca', '1964-01-02', 'F', '87.5', '1.83', 'paraguai' ),
+(DEFAULT , 'marcio', '1959-01-02', 'M', '77.5', '1.93', 'belgica' ),
+(DEFAULT , 'jessica', '1944-01-02', 'F', '57.5', '1.53', 'china' );
+
+--------------------------------------------------
+descrever parametros de pessoas
+desc pessoas;
+
+---------------------------------------------
+alterar estrutura da tabela
+acresentar campo profissao em pessoas
+
+alter table pessoas
+add column profissao varchar(10);
