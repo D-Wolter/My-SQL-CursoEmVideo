@@ -1,0 +1,10 @@
+manipular sinonimos (linhas - tuplas -registro) 
+
+insert into gafanhoto values
+('1','joao','amigo','28','1975'),
+('2','jose','verdedor','425','1970'),
+('3','jair','pintor','45','1960'),
+('4','nildo','tio','66','1950'),
+('5','lucia','tia','22','1980'),
+('6','marco','artista','54','1930');
+

@@ -5,13 +5,15 @@ comando definicoes dados
 
 create database
 create table
-
-insert into
- ----------------------------------------------------------
+alter table
+----------------------------------------------------------
  ---------------------------------------------------------
  dml - data manupulation language
  comando manipulaçao das variaveis
 
+insert into
+---------------------------------------------------------
+------------------------------------------------------------
 create database cadastro;
 -----------------------------------------
 podemos usar `` para palavra definicao -  e '' para variaveis - permite mais flexibilidade para nomes com espaços e acentos, mas nao muiyo recomendado.
@@ -29,20 +31,16 @@ nacionalidade varchar(20) default 'brasila'
 describe pessoas;
 
     não se poe virgula na ultima linha antes de fechar, se por ele espera nova linha-------- e o ponto virgula ; é a definição de comando
-
 ----------------------------------
 
 drop database cadastro;
             deleta tabela
-
 ------------------------------
-
 create database cadastro
 default character set utf8
 default collate utf8_general_ci;
 
 create database meubanco;
-
 -----------------  
 adicionando regras de prncimento
     not null - campo de prencimento obrigatorio
@@ -63,7 +61,6 @@ altura decimal(3,2),
 nacionalidade varchar(20) default 'brasil',
 primary key (id)
 )default charset = utf8;
-
 ----------------------------------------
 inserir primeiro cliente (nomeando variaveis)
     nao informamos id porque ele foi configurado par auto incrementado na geraçao do registro
@@ -74,7 +71,6 @@ values
 ('daniel', '1984-01-02', 'M', '78.5', '1.83', 'brasil');
 
 select * from pessoas;
-
 ------------------------------------------------
 inserir segundo cliente 
 
@@ -82,35 +78,112 @@ insert into pessoas
 (nome, idade, sexo, peso, altura, nacionalidade)
 values
 ('maria', '1974-01-02', 'F', '70.5', '1.63', 'argentina');
-
 ---------------------------------------
 exibilir lista clientes
 
 select * from pessoas;
-
 --------------------------------------------
  (inserir dados com campos prencidos nao sequencia sem precisar informar as chaves) (nome, idade, sexo, peso, altura, nacionalidade)
 
 insert into pessoas values
 (DEFAULT , 'jose', '1954-01-02', 'M', '77.5', '1.73', DEFAULT );
-
 ---------------------------------------
 inserir multiplos 
-
 
 insert into pessoas values
 (DEFAULT , 'ramiro', '1954-01-02', 'M', '47.5', '1.43', DEFAULT ),
 (DEFAULT , 'bianca', '1964-01-02', 'F', '87.5', '1.83', 'paraguai' ),
 (DEFAULT , 'marcio', '1959-01-02', 'M', '77.5', '1.93', 'belgica' ),
 (DEFAULT , 'jessica', '1944-01-02', 'F', '57.5', '1.53', 'china' );
-
 --------------------------------------------------
 descrever parametros de pessoas
-desc pessoas;
 
+desc pessoas;
 ---------------------------------------------
 alterar estrutura da tabela
-acresentar campo profissao em pessoas
+acrescentar campo profissao em pessoas (acrescenta no fim da lista de coluna)
 
 alter table pessoas
 add column profissao varchar(10);
+--------------------------------
+excluir uma coluna na tabela
+
+alter table pessoas
+drop column profissao;
+--------------------------------------------
+acrescentar campo profissao em pessoas (numaa posiçao especifica)(depois de, nome) after nome OU 
+
+alter table pessoas
+add column profissao varchar(10) after nome;
+
+alter table pessoas
+add column codigo int first;
+
+alter table pessoas
+modify column profissao varchar(20);
+----------------------------------------------------
+criando coluna obrigatoria e prncher os existentes por padrao '' e os novos ser obrigatorios not null
+
+alter table pessoas
+modify column profissao varchar(30) not null default '';
+-----------------------------------------------------------
+alterar um nome coluna
+
+alter table pessoas
+change column profissao prof varchar(20);
+
+alter table pessoas
+change column nacionalidade pais varchar(20) not null default '';
+---------------------------------------------------------------
+renomear o nome da tabela pessoas
+
+alter table pessoas
+rename to cliente_basico;
+-------------------------------------------------
+criar tabela se ela nao exitir
+
+create table if not exists gafanhoto (teste int);
+
+create table if not exists gafanhoto (
+nome varchar(30) not null unique,
+descricao text,
+carga int unsigned,
+ano year default '2020'
+)default charset=utf8;
+---------------------------------------------
+adicionando coluna id que esquecemos chave primaria acima (dois comandos)
+
+alter table gafanhoto
+add column idclienteo int first;
+
+alter table gafanhoto
+add primary key(idclienteo);
+-----------------------------------------------
+apagar tabela gafanhotos
+
+drop table gafanhoto;
+----------------------------------------------------
+mudando uma varaivel nome dentro de cliente_basico indicndo id
+
+update cliente_basico
+set nome = 'alvaro'
+where id = '5';
+----------------------------------------------------
+mudando duas varaivel dentro de cliente_basico
+
+update cliente_basico
+set peso = '67.80', altura = '1.87', pais = 'brasil'
+where id = '5'
+limit 1;
+
+segurança de arquivo (inserimos comando para limitar a uma linha por segurança) (limit 1) altera primeira linha encontrada, pode limitar mais de 1
+para fazer multiplas alteraçoe existe proteçao, para desativar clica em menu Edit > preferences > sql Editor > no fim da lista desmarca Safe updates
+--------------------------------------------------
+apagar um registro
+
+delete from cliente_basico
+where id = '7';
+-------------------------------------------------------
+apagar todos registros da tabela mas mantem identificadores
+
+truncate table cliente_basico

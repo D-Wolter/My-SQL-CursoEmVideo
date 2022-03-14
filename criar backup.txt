@@ -1,0 +1,120 @@
+dentro do workbrench vamos no menu > server > data export - e abrira a janela de selecao de esquemas
+
+seliciona tabelas maca opcao export to self-container file e depois escolhe nome e diretorio e clica em start export
+---------------------------------------------
+abrindo backup em qualquer workbrench
+
+clica menu > server > data import
+-----------------------------------------------
+clicndo em wamp > mysql> console mysql - digita user e senha
+
+na tela preta digita para mostras a estrutura de dados
+
+show databases;
+-------------------------------
+para ver em que banco de dados esta no momento
+
+status;
+-----------------------
+para entrar no banco de dados especifico
+
+use cadastro;
+-------------------------
+exibir tabelas
+
+show tables;
+-----------------------------
+exibir chaves da tabela
+
+describe cliente_basico;
+
+---------------------------------------
+                        clicando em wamp abrindo PhpMyAdmin
+                    poe user e senha
+e abre uma interface para gerenciar as tabelas, e ele mostra o codigo gerado para as alterçoes
+
+
+------------------------------
+esxibir lista da tabela ordenada pelo filtro
+
+select * from gafanhotos
+order by nome;
+
+select * from gafanhotos
+order by nome desc;
+-----------------------
+exibir algumas colunas filtradas
+
+select nome, carga, ano from cursos
+order by nome;
+--
+select nome, carga, ano from cursos
+order by ano, nome;
+---------------------
+filtradas por linha valores das variaveis
+
+select * from cursos
+where ano = '2016'
+order by nome;
+---
+select * from cursos
+where ano != '2016'
+order by nome;
+--
+select nome, ano from cursos
+where ano between 2014 and 2016
+order by ano desc, nome asc;
+--
+select nome, descricao, ano from cursos
+where ano in (2014, 2016)
+order by ano;
+--
+select * from cursos
+where carga > 35 and totaulas < 30;
+--                            like é operados de comparaçao (like = parecido)e o % coringa eh como *
+filtrando palavras que começam com p
+select * from cursos
+where nome like 'P%';
+--
+filtrando palavras que terminam e A
+select * from cursos
+where nome like '%A';
+--
+filtrando qulquer palavra que contenha o digito A
+select * from cursos
+where nome like '%a%';
+--
+filtrando qulquer palavra que nao contenha digito A
+select * from cursos
+where nome not like '%a%';
+--
+mostarr lista de nacionalidades registradas
+select nacionalidade from gafanhotos;
+--
+mostar nacionalidades sem repetir e depois ordenado por nome.
+select distinct nacionalidade from gafanhotos
+order by nacionalidade;
+--
+conta quantos registros tem
+select count(*) from cursos;
+--
+select * from cursos where carga > 30;
+--
+select max(carga) from cursos;
+--
+selecionar media de valores
+select avg(totaulas) from cursos;
+--
+mostar os tipos carga sem repetir
+
+select distinct carga from cursos 
+order by carga;
+--
+listar todos repetindo os com mesmo valores
+select carga from cursos
+group by carga;
+--
+mostar os valores distintos e a quantidade de repetiçao de cada valores
+
+select carga , count(nome) from cursos
+group by carga;
